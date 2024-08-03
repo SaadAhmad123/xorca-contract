@@ -18,6 +18,8 @@ export default class XOrcaSimpleContract<
   TSchema,
   XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>
 > {
+
+  parameters: IXOrcaSimpleContract<TType, TSchema, TEmit>
   /**
    * Creates an instance of XOrcaSimpleContract.
    * @param {IXOrcaSimpleContract<TType, TSchema, TEmit>} params - The parameters for the contract.
@@ -35,5 +37,7 @@ export default class XOrcaSimpleContract<
         [`evt.${params.type}.error`]: XOrcaErrorSchema,
       } as XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>,
     });
+
+    this.parameters = { ...params }
   }
 }
