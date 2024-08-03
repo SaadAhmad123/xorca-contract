@@ -35,4 +35,13 @@ export default class XOrcaContract<
       schema: value,
     })) as XOrcaSchemaRecordToUnion<TEmit>[];
   }
+
+  toJSON(): IXOrcaContract<TAcceptType, TAcceptSchema, TEmit> {
+    return {
+      name: this.name,
+      description: this.description,
+      accepts: this.accepts,
+      emits: this.emits
+    }
+  }
 }
