@@ -31,7 +31,6 @@ export type XOrcaSimpleContractEmit<
   [K in
     | `evt.${TType}.success`
     | `evt.${TType}.error`
-    | `evt.${TType}.timeout`
     | `sys.${TType}.error`]: K extends `evt.${TType}.success`
     ? TSchema
     : TErrorSchema;

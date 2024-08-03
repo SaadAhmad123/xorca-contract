@@ -33,7 +33,6 @@ export default class XOrcaSimpleContract<
       emits: {
         [`evt.${params.type}.success`]: params.emits,
         [`evt.${params.type}.error`]: XOrcaErrorSchema,
-        [`evt.${params.type}.timeout`]: XOrcaErrorSchema,
         [`sys.${params.type}.error`]: XOrcaErrorSchema,
       } as XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>,
     });
