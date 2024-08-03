@@ -1,0 +1,41 @@
+import * as zod from 'zod';
+import { IXOrcaSimpleContract, XOrcaSimpleContractEmit } from './types';
+import { XOrcaErrorSchema } from '../utils';
+import XOrcaContract from '../XOrcaContract';
+
+/**
+ * Class representing a simple XOrca contract.
+ * @template TType - The type of the contract.
+ * @template TSchema - The Zod schema for the contract's input.
+ * @template TEmit - The Zod schema for the contract's output.
+ */
+export default class XOrcaSimpleContract<
+  TType extends string,
+  TSchema extends zod.ZodTypeAny,
+  TEmit extends zod.ZodTypeAny,
+> extends XOrcaContract<
+  `cmd.${TType}`,
+  TSchema,
+  XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>
+> {
+  /**
+   * Creates an instance of XOrcaSimpleContract.
+   * @param {IXOrcaSimpleContract<TType, TSchema, TEmit>} params - The parameters for the contract.
+   */
+  constructor(params: IXOrcaSimpleContract<TType, TSchema, TEmit>) {
+    super({
+      name: `XOrcaSimpleContract<${params.type}>`,
+      description: params.description,
+      accepts: {
+        type: `cmd.${params.type}`,
+        schema: params.schema,
+      },
+      emits: {
+        [`evt.${params.type}.success`]: params.emits,
+        [`evt.${params.type}.error`]: XOrcaErrorSchema,
+        [`evt.${params.type}.timeout`]: XOrcaErrorSchema,
+        [`sys.${params.type}.error`]: XOrcaErrorSchema,
+      } as XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>,
+    });
+  }
+}
