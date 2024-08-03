@@ -1,6 +1,12 @@
 import * as zod from 'zod';
 import { IXOrcaContract } from './types';
-import { XOrcaSchemaRecordToUnion } from '../types';
+
+type XOrcaSchemaRecordToUnion<T extends Record<string, unknown>> = {
+  [K in keyof T]: {
+    type: K;
+    schema: T[K];
+  };
+}[keyof T];
 
 /**
  * Class representing an XOrca contract.

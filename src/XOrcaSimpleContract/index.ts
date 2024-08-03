@@ -1,7 +1,7 @@
 import * as zod from 'zod';
 import { IXOrcaSimpleContract, XOrcaSimpleContractEmit } from './types';
 import { XOrcaErrorSchema } from '../utils';
-import XOrcaContract from '../XOrcaContract';
+import XOrcaBaseContract from '../XOrcaBaseContract';
 
 /**
  * Class representing a simple XOrca contract.
@@ -13,7 +13,7 @@ export default class XOrcaSimpleContract<
   TType extends string,
   TSchema extends zod.ZodTypeAny,
   TEmit extends zod.ZodTypeAny,
-> extends XOrcaContract<
+> extends XOrcaBaseContract<
   `cmd.${TType}`,
   TSchema,
   XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>
@@ -33,7 +33,6 @@ export default class XOrcaSimpleContract<
       emits: {
         [`evt.${params.type}.success`]: params.emits,
         [`evt.${params.type}.error`]: XOrcaErrorSchema,
-        [`sys.${params.type}.error`]: XOrcaErrorSchema,
       } as XOrcaSimpleContractEmit<TType, TEmit, typeof XOrcaErrorSchema>,
     });
   }

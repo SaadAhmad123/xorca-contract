@@ -1,13 +1,15 @@
-import { IXOrcaContract } from './XOrcaContract/types';
+import XOrcaSimpleContract from './XOrcaSimpleContract';
+import XOrcaBaseContract from './XOrcaBaseContract';
 import XOrcaContract from './XOrcaContract';
 import { XOrcaErrorSchema } from './utils';
-import XOrcaSimpleContract from './XOrcaSimpleContract';
+import { IXOrcaContract } from './XOrcaContract/types';
 import { XOrcaContractInfer } from './types';
 
 export {
   XOrcaContract,
+  XOrcaBaseContract,
+  XOrcaSimpleContract,
   IXOrcaContract,
   XOrcaErrorSchema,
-  XOrcaSimpleContract,
   XOrcaContractInfer,
 };

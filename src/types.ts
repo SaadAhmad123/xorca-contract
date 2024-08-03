@@ -1,13 +1,16 @@
 import * as zod from 'zod';
 import { IXOrcaContract } from './XOrcaContract/types';
 
-export type XOrcaSchemaRecordToUnion<T extends Record<string, unknown>> = {
+type XOrcaSchemaRecordToDataUnion<T extends Record<string, unknown>> = {
   [K in keyof T]: {
     type: K;
-    schema: T[K];
+    data: T[K];
   };
 }[keyof T];
 
+/**
+ * Infers the contract to the data typescript data types
+ */
 export type XOrcaContractInfer<
   T extends IXOrcaContract<
     string,
@@ -19,12 +22,12 @@ export type XOrcaContractInfer<
   description: T['description'];
   accepts: {
     type: T['accepts']['type'];
-    schema: zod.infer<T['accepts']['schema']>;
+    data: zod.infer<T['accepts']['schema']>;
   };
   emits: {
     [K in keyof T['emits']]: zod.infer<T['emits'][K]>;
   };
-  emitables: XOrcaSchemaRecordToUnion<{
+  emitables: XOrcaSchemaRecordToDataUnion<{
     [K in keyof T['emits']]: zod.infer<T['emits'][K]>;
   }>;
 };
